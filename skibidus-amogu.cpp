@@ -9,7 +9,7 @@ void solve() {
     int n;
     cin >> n;
 
-    while (--n) {
+    while (n--) {
         string og_s;
         cin >> og_s;
 
