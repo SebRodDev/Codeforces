@@ -6,8 +6,7 @@ using namespace std;
 using vi = vector<int>;
 
 void solve() {
-    int n;
-    cin >> n;
+    int n; cin >> n;
 }
 
 int main() {
