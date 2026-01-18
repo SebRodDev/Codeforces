@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+# Check if a filename was provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <filename>"
+    echo "Example: $0 solution"
+    exit 1
+fi
+
+# Get the filename and ensure it has .cpp extension
+filename="$1"
+if [[ ! "$filename" == *.cpp ]]; then
+    filename="${filename}.cpp"
+fi
+
+# Copy template.cpp to the new file
+if [ -f "template.cpp" ]; then
+    cp template.cpp "$filename"
+    echo "Created $filename from template.cpp"
+else
+    echo "Error: template.cpp not found in current directory"
+    exit 1
+fi
