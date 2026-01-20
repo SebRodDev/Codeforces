@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <cmath>
+#include <algorithm>
 #include <utility>
 #include <unordered_map>
 #include <map>
@@ -38,40 +40,33 @@ const int inf = 1e9;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
-    int n; cin >> n;
 
-    while (n--) {
-        int nums; cin >> nums;
+    int t; cin >> t;
 
+    while (t--) {
+        int n, k; cin >> n >> k;
 
-        set<int> numbers;
-        for (int i = 0; i < nums; i++) {
-            int cur; cin >> cur;
-            numbers.insert(cur);
+        vector<pair<int, int>> nums(n);
+
+        for (int i = 0; i < n; i++) {
+            int current; cin >> current;
+            nums[i] = {current, i + 1};
         }
 
-        vector<int> unique;
+        sort(nums.begin(), nums.end(), [k](pair<int, int> a, pair<int, int> b) {
+            int modA = a.first % k;
+            int modB = b.first % k;
 
-        for (auto num : numbers) {
-            unique.push_back(num);
-        }
-
-        int longest = 1;
-        int cur = 1;
-
-        for (int i = 1; i < unique.size(); i++) {
-            if (unique[i] == unique[i - 1] + 1) {
-                cur++;
-                longest = max(longest, cur);
-            } else {
-                cur = 1;
+            if (modA != modB) {
+                return modA < modB;
             }
+
+            return a.first < b.first;
+        });
+
+        for (int i = 0; i < n; i++) {
+            cout << nums[i].second << " ";
         }
-
-        cout << longest << "\n";
-
-        // get a clear idea of what the array should look like
-
+        cout << "\n";
     }
 }

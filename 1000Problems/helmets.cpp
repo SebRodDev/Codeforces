@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include <utility>
 #include <unordered_map>
 #include <map>
@@ -38,40 +39,54 @@ const int inf = 1e9;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
-    int n; cin >> n;
 
-    while (n--) {
-        int nums; cin >> nums;
+    // looks like a graph
+    int t; cin >> t;
 
+    while (t--) {
+        int n, p; cin >> n >> p;
 
-        set<int> numbers;
-        for (int i = 0; i < nums; i++) {
-            int cur; cin >> cur;
-            numbers.insert(cur);
+        vector<long long> a(n);
+        vector<long long> b(n);
+
+        for (int i = 0; i < n; i++) cin >> a[i];
+        for (int i = 0; i < n; i++) cin >> b[i];
+
+        // want to greedily spread starting at the neighbor that can spread to most people and has cheapest cost
+        vector<pair<long long,long long>> combined(n);
+
+        for (int i = 0; i < n; i++) {
+            combined[i] = {b[i], a[i]};
         }
 
-        vector<int> unique;
+        sort(combined.begin(), combined.end(), [](const auto& one, const auto& two) {
+            if (one.first != two.first) return one.first < two.first;
+            return one.second < two.second;
+        });
 
-        for (auto num : numbers) {
-            unique.push_back(num);
-        }
+        long long res = 0;
 
-        int longest = 1;
-        int cur = 1;
+        if (n > 0) {
+            n--;
+            res += p;
 
-        for (int i = 1; i < unique.size(); i++) {
-            if (unique[i] == unique[i - 1] + 1) {
-                cur++;
-                longest = max(longest, cur);
-            } else {
-                cur = 1;
+            int currentNeighbor = 0;
+            while (n > 0) {
+                if (combined[currentNeighbor].first < p && combined[currentNeighbor].second > 0) {
+                    res += combined[currentNeighbor].first;
+                    n--;
+                    combined[currentNeighbor].second--;
+
+                    if (combined[currentNeighbor].second == 0) {
+                        currentNeighbor++;
+                    }
+                } else {
+                    res += p;
+                    n--;
+                }
             }
         }
 
-        cout << longest << "\n";
-
-        // get a clear idea of what the array should look like
-
+        cout << res << "\n";
     }
 }

@@ -1,12 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <utility>
-#include <unordered_map>
-#include <map>
-#include <unordered_set>
-#include <set>
-#include <tuple>
+#include <bits/stdc++.h>
 
 using namespace std;
 

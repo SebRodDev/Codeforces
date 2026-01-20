@@ -36,42 +36,51 @@ if (s[i] == ')' || s[i] == '}') b--; else if (s[i] == ',' && b == 0) {cerr << "\
 const int inf = 1e9;
 
 int main() {
+    // basically the whole goal of this problem is that we are trying to find the minimum amount that is needed in order to get the number to be divisible 
+    // by k for case where k=2,3,5, but when we have a case of k=4 we could either make two factors of 2 because 4 = 2^2 or we could simply just have to increment one number
+    // by a smaller amount to get it to get a factor of 4 that is why we have it as such and why only for k=4 there are 2 cases
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
-    int n; cin >> n;
 
-    while (n--) {
-        int nums; cin >> nums;
+    int t; cin >> t;
 
+    while (t--) {
+        int n, k; cin >> n >> k;
 
-        set<int> numbers;
-        for (int i = 0; i < nums; i++) {
-            int cur; cin >> cur;
-            numbers.insert(cur);
+        vector<int> numbers(n);
+
+        int evenCount = 0;
+        for (int i = 0; i < n; i++) {
+            cin >> numbers[i];
         }
 
-        vector<int> unique;
+        if (k==2 || k==3 || k==5) {
+            int minAmount = 1e9;
+            for (auto el : numbers) {
+                minAmount = min(minAmount, (int) ((k - el % k) % k));
+            }
 
-        for (auto num : numbers) {
-            unique.push_back(num);
-        }
+            cout << minAmount << "\n";
+        } else {
+            int minAmount = 1e9;
+            for (auto el: numbers) {
+                minAmount = min(minAmount, (int) ((k - el % k) % k));
+            }
 
-        int longest = 1;
-        int cur = 1;
+            // second case that its better to get 2
+            int evenAmount = 0;
+            for (int i = 0; i < n; i++) {
+                if (numbers[i] % 2 == 0) evenAmount++;
+            }
 
-        for (int i = 1; i < unique.size(); i++) {
-            if (unique[i] == unique[i - 1] + 1) {
-                cur++;
-                longest = max(longest, cur);
+
+            if (evenAmount >= 2) {
+                cout << 0 << "\n";
+            } else if (evenAmount == 1) {
+                cout << min(minAmount, 1) << "\n";
             } else {
-                cur = 1;
+                cout << min(minAmount, 2) << "\n";
             }
         }
-
-        cout << longest << "\n";
-
-        // get a clear idea of what the array should look like
-
     }
 }
