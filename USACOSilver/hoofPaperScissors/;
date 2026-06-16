@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+#define usaco
+
+#ifdef usaco
+std::ifstream cin("bcount.in");
+std::ofstream cout("bcount.out");
+#endif
+
+int main() {
+
+    int n; cin >> n;
+    std::vector<int> p(n + 1);
+    std::vector<int> h(n + 1);
+    std::vector<int> s(n + 1);
+
+    for (int i = 1; i <= n; i++) {
+        p[i] += p[i - 1]; h[i] += h[i - 1]; s[i] += s[i - 1];
+
+        char c; cin >> c;
+
+        if (c == 'H') h[i]++;
+        if (c == 'P') p[i]++;
+        if (c == 'S') s[i]++;
+    }
+
+    int m = 0;
+    for (int i = 1; i <= n; i++) {
+        int b = max(p[i], h[i], s[i]);
+    }
+
+}
