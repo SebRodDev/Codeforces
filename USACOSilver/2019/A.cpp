@@ -1,8 +1,7 @@
-#include </Users/sebastianrodriguez/stdc++.h>
-
-#define int long long
+#include <bits/stdc++.h>
 
 using namespace std;
+#define int long long
 
 #ifdef LOCAL
 #define DEBUG(...) debug(#__VA_ARGS__, __VA_ARGS__)
@@ -21,10 +20,24 @@ int32_t main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n; vector<int> a(n + 1);
+    string s; cin >> s;
+    
+    map<int, int> dp;
 
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
-        a[i] += a[i - 1];
+    int power = 1;
+    int num = 0;
+    for (int i = s.size() - 1; i >= 0; i--) {
+        num = (num + power * (s[i] - '0')) % 2019;
+        dp[num]++;
+        power = power * 10 % 2019;
     }
+
+    int res = 0;
+    dp[0]++;
+    for (auto& [key, value] : dp) {
+        res += (value * (value - 1) / 2.0);
+    }
+    
+
+    cout << res << "\n";
 }
