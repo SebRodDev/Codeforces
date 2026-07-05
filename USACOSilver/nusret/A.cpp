@@ -1,4 +1,5 @@
-#include </Users/sebastianrodriguez/stdc++.h>
+//#include </Users/sebastianrodriguez/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -19,21 +20,37 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    
-    int t; cin >> t;
 
-    while (t--) {
+    int n, m; cin >> n >> m;
 
-        int n, m; cin >> n >> m;
-        vector<int> a(n + 1);
+    vector<int> s(n);
 
-        for (int i = 1; i <= n; i++) cin >> a[i];
+    priority_queue<pair<int, int>> heap;
+    for (int i = 0; i < n; i++) {
+        cin >> s[i];
+        heap.push({s[i], i});
+    }
 
-        // same x across all of the numbers 
-        // maybe hashmap keeping track of their mod values of M and then given that we can try to find the closest x minimizing this
-        // x we can just increment the 
+    while (!heap.empty()) {
+        pair<int, int> top = heap.top();
+        heap.pop();
 
-        // use a set
-        // a_i - x % M == 0
+        // check left index
+        if (top.second - 1 >= 0 && abs(s[top.second] - s[top.second - 1]) > m) {
+            s[top.second - 1] = s[top.second] - m;
+            heap.push({s[top.second - 1], top.second - 1});
+        }
+
+
+        // check right index
+        if (top.second + 1 < n && abs(s[top.second] - s[top.second + 1]) > m) {
+            s[top.second + 1] = s[top.second] - m;
+            heap.push({s[top.second + 1], top.second + 1});
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << s[i] << " ";
     }
 }
+

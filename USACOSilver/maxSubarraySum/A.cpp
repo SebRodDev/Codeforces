@@ -1,6 +1,7 @@
-#include </Users/sebastianrodriguez/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
+#define int long long 
 
 #ifdef LOCAL
 #define DEBUG(...) debug(#__VA_ARGS__, __VA_ARGS__)
@@ -15,25 +16,27 @@ template<typename T> void debug(string s, T x) {cerr << "\033[1;35m" << s << "\0
 template<typename T, typename... Args> void debug(string s, T x, Args... args) {for (int i=0, b=0; i<(int)s.size(); i++) if (s[i] == '(' || s[i] == '{') b++; else
 if (s[i] == ')' || s[i] == '}') b--; else if (s[i] == ',' && b == 0) {cerr << "\033[1;35m" << s.substr(0, i) << "\033[0;32m = \033[33m" << x << "\033[31m | "; debug(s.substr(s.find_first_not_of(' ', i + 1)), args...); break;}}
 
-int main() {
+int32_t main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    
-    int t; cin >> t;
+    int n; cin >> n;
 
-    while (t--) {
+    vector<int> a(n + 1);
 
-        int n, m; cin >> n >> m;
-        vector<int> a(n + 1);
-
-        for (int i = 1; i <= n; i++) cin >> a[i];
-
-        // same x across all of the numbers 
-        // maybe hashmap keeping track of their mod values of M and then given that we can try to find the closest x minimizing this
-        // x we can just increment the 
-
-        // use a set
-        // a_i - x % M == 0
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i]; a[i] += a[i - 1];
     }
+
+    // track min
+    int minAmount = a[0];
+    int maxAmount = a[1];
+
+    for (int i = 1; i <= n; i++) {
+        maxAmount = max(maxAmount, a[i] - minAmount);
+        minAmount = min(minAmount, a[i]);
+    }
+
+    cout << maxAmount << "\n";
 }
+

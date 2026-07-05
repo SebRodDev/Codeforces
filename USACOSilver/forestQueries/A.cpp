@@ -1,4 +1,4 @@
-#include </Users/sebastianrodriguez/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -19,21 +19,26 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
+    // just count num trees enclosed in the rectangle
     
-    int t; cin >> t;
+    int n, q; cin >> n >> q;
 
-    while (t--) {
+    // 2d array to track correctly
+    vector<vector<int>> a(n + 1, vector<int>(n + 1));
 
-        int n, m; cin >> n >> m;
-        vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            char c; cin >> c;
 
-        for (int i = 1; i <= n; i++) cin >> a[i];
+            a[i][j] = a[i - 1][j] + a[i][j - 1] - a[i - 1][j - 1];
+            if (c == '*') a[i][j]++;
+        }
+    }
 
-        // same x across all of the numbers 
-        // maybe hashmap keeping track of their mod values of M and then given that we can try to find the closest x minimizing this
-        // x we can just increment the 
+    while (q--) {
+        int y1, x1, y2, x2; cin >> y1 >> x1 >> y2 >> x2;
 
-        // use a set
-        // a_i - x % M == 0
+        cout << a[y2][x2] - a[y1 - 1][x2] - a[y2][x1 - 1] + a[y1 - 1][x1 - 1] << "\n";
     }
 }
+
