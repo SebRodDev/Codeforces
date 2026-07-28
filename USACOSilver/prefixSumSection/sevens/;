@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+#define int long long
+
+//#define usaco
+using namespace std;
+
+#ifdef usaco
+std::ifstream cin("div7.in");
+std::ofstream cout("div7.out");
+#endif
+
+int32_t main() {
+
+    // ids add to 7
+    int n; cin >> n;
+    vector<int> a(n);
+
+    
+    // largest consecutive -> sliding window
+    for (auto& x : a) cin >> x;
+
+    int left = 0; int right = 0;
+
+    while (left < n) {
+        // move the right and left while not
+        int currentSum = 0;
+        while (left < n && right < n) {
+            currentSum += a[right];
+        }
+    }
+
+
+}
