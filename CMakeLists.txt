@@ -4,3 +4,4 @@ project(comp)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(test USACOSilver/sortingSearching/sumTwoValues/test.cpp)
+add_executable(mergeSortPrep USACOSilver/sortingSearching/mergeSortPrep.cpp)
