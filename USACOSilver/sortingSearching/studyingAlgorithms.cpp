@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+//#include </Users/sebastianrodriguez/stdc++.h>
 
 using namespace std;
 
@@ -18,4 +19,23 @@ if (s[i] == ')' || s[i] == '}') b--; else if (s[i] == ',' && b == 0) {cerr << "\
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
+
+    int n, x; cin >> n >> x;
+
+    vector<int> a(n); for (auto & i : a) cin >> i;
+
+    sort(a.begin(), a.end());
+
+    int res = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (x - a[i] >= 0) {
+            res++;
+            x -= a[i];
+        } else {
+            break;
+        }
+    }
+
+    cout << res << "\n";
 }
