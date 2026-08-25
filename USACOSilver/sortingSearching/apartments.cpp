@@ -1,7 +1,8 @@
-//#include <bits/stdc++.h>
-#include </Users/sebastianrodriguez/stdc++.h>
+#include <bits/stdc++.h>
+//#include </Users/sebastianrodriguez/stdc++.h>
 
 using namespace std;
+#define int long long
 
 #ifdef LOCAL
 #define DEBUG(...) debug(#__VA_ARGS__, __VA_ARGS__)
@@ -16,7 +17,38 @@ template<typename T> void debug(string s, T x) {cerr << "\033[1;35m" << s << "\0
 template<typename T, typename... Args> void debug(string s, T x, Args... args) {for (int i=0, b=0; i<(int)s.size(); i++) if (s[i] == '(' || s[i] == '{') b++; else
 if (s[i] == ')' || s[i] == '}') b--; else if (s[i] == ',' && b == 0) {cerr << "\033[1;35m" << s.substr(0, i) << "\033[0;32m = \033[33m" << x << "\033[31m | "; debug(s.substr(s.find_first_not_of(' ', i + 1)), args...); break;}}
 
-int main() {
+int32_t main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
+
+    int n, m, k; cin >> n >> m >> k;
+
+    vector<int> a(n); for (int i = 0; i < n; i++) cin >> a[i];
+
+    vector<int> prices(m); for (int i = 0; i < m; i++) cin >> prices[i];
+
+
+    sort(a.begin(), a.end());
+    sort(prices.begin(), prices.end());
+    //cout << a << "\n";
+    //cout << prices << "\n";
+
+    int currentPerson = 0, currentHouse = 0;
+
+    int res = 0;
+    while (currentPerson < n && currentHouse < m) {
+        if (prices[currentHouse] >= a[currentPerson] - k && prices[currentHouse] <= a[currentPerson] + k) {
+            currentPerson++;
+            res++;
+            currentHouse++;
+        } else {
+            if (prices[currentHouse] < a[currentPerson]) {
+                currentHouse++;
+            } else {
+                currentPerson++;
+            }
+        }
+    }
+
+    cout << res << endl;
 }
